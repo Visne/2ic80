@@ -1,8 +1,6 @@
 from scapy.layers.l2 import Ether, ARP
 from scapy.sendrecv import sendp
 
-print("Hello world")
-
 macM3 = "08:00:27:af:ee:33"
 ipM3 = "192.168.56.103"
 
