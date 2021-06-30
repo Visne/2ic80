@@ -36,9 +36,9 @@ def help():
     print ''
     print 'Optional arguments:'
     print "-g <gateway ip>  , --gateway=<gateway ip>        Specify gateway ip, default gateway used otherwise"
-    print "-i <interface> , --interface <interface>         Specify interface, default interface used otherwise"
-    print "-d <map url->ip> , --dns=<map url->ip>           Start dns spoof attack on specified url"
-    print "-a , --dnsall                                    Start dns spoof attack on all dns responses"
+    print "-i <interface> , --interface=<interface>         Specify interface, default interface used otherwise"
+    print "-d <map url->ip> , --dns=<map url->ip>           Start dns spoof attack on specified url(s)"
+    print "-a <redirect ip> , --dnsall=<redirect ip>        Start dns spoof attack on all dns responses"
     print "-s , --ssl                                       Start ssl strip attack"
     print "-q <queue number> , --queuenum=<queue number>    Queue number for netfilterqueue used for dns attack, " \
           "default is 0"
@@ -132,8 +132,9 @@ def main(argv):
             ssl = SSLStrip()
 
             # Start SSL process
-            ssl_process = multiprocessing.Process(target=ssl.start(), name="SSL Strip")
+            ssl_process = multiprocessing.Process(target=ssl.start, name="SSL Strip")
             ssl_process.start()
+            print "[*] Started SSL Process"
 
         time.sleep(1000000000000)
 

